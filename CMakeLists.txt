@@ -66,6 +66,8 @@ set(ENABLE_MULTIVERSION_PROTOCOL_TEST FALSE CACHE BOOL "Enable nodeos multiversi
 if(APPLE AND UNIX AND "${OPENSSL_ROOT_DIR}" STREQUAL "")
    set(OPENSSL_ROOT_DIR "/usr/local/opt/openssl@1.1")
 endif()
+# this API value was default in 1.0 & 1.1, but not in 3.0 which leads to compile failures around BN_zero()
+add_definitions("-DOPENSSL_API_COMPAT=0x00908000L")
 
 option(ENABLE_OC "Enable eosvm-oc on supported platforms" ON)
 
